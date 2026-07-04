@@ -1,76 +1,112 @@
+# HRM Website Installation Guide (Laravel)
 
-# Project Dowload
+## Project Download
 
+Download the complete project files from the link below:
 
-Download Link For Project file and folder
+**Project Files:**
 https://drive.google.com/drive/folders/1ptPh9TTzDiGH3zU51X1_B_XRA2z-067T?usp=sharing
 
+---
 
-# HRM Website Installation Guide
+# Human Resource Management System (HRM)
 
-## System Requirements
+This Human Resource Management System (HRM) is developed using the **Laravel Framework**. The application provides employee management, attendance, leave management, payroll, department management, user authentication, role-based access control, and various HR administration features.
 
-Before installing the application, ensure your hosting server meets the following requirements:
-
-### Web Server
-
-* Apache, Nginx, or another compatible web server
-* Apache **mod_rewrite** module enabled
-
-### PHP Requirements
-
-* PHP 8.x (as required by your Laravel version)
-* PHP cURL Extension enabled
-* PHP FileInfo Extension enabled (required for image uploads)
-
-### Database
-
-* MySQL Database Server
-
-### Internet Connection
-
-* Active internet connection (required for email services and other online integrations)
+Follow the steps below to install the application on your web hosting server.
 
 ---
 
-# Installation Steps
+# System Requirements
 
-## Step 1: Upload Project Files
+Before installing the application, ensure that your hosting environment meets the following requirements.
 
-1. Log in to your hosting control panel (such as cPanel).
+## Web Server
+
+* Apache 2.4+ (Recommended)
+* Nginx (Supported)
+* Apache **mod_rewrite** enabled
+
+## PHP Requirements
+
+* PHP **8.x**
+* BCMath Extension
+* Ctype Extension
+* cURL Extension
+* DOM Extension
+* FileInfo Extension
+* JSON Extension
+* Mbstring Extension
+* OpenSSL Extension
+* PDO Extension
+* Tokenizer Extension
+* XML Extension
+* ZIP Extension
+
+## Database
+
+* MySQL 5.7+ or MySQL 8.x
+* MariaDB 10.3+
+
+## Other Requirements
+
+* Composer (Only required for local development)
+* Active Internet Connection (Required for Email Services and External Integrations)
+
+---
+
+# Installation Guide
+
+## Step 1: Download the Project
+
+Download the project from the Google Drive link provided above.
+
+The downloaded package contains:
+
+* Laravel Project Files
+* SQL Database Backup
+
+---
+
+## Step 2: Upload Project Files
+
+1. Log in to your hosting control panel (cPanel, Plesk, DirectAdmin, etc.).
 2. Open **File Manager**.
 3. Navigate to the **public_html** directory.
-4. Upload the **main-file.zip** file.
-5. Extract the ZIP file inside the **public_html** directory.
+4. Upload **main-file.zip**.
+5. Extract the ZIP file inside **public_html**.
 
-The folder structure should now contain all Laravel project files.
+After extraction, the Laravel project files should be available inside your hosting directory.
 
 ---
 
-## Step 2: Create a Database
+## Step 3: Create a Database
 
-1. Open **MySQL Databases** from your hosting control panel.
+1. Open **MySQL Databases**.
 2. Create a new database.
-3. Create a new database user.
-4. Assign the user to the database with **All Privileges**.
+3. Create a database user.
+4. Assign the user to the database.
+5. Grant **All Privileges**.
 
 ---
 
-## Step 3: Import Database
+## Step 4: Import the Database
 
 1. Open **phpMyAdmin**.
-2. Select the newly created database.
+2. Select the database you created.
 3. Click **Import**.
-4. Choose the **database.sql** file.
+4. Select the **database.sql** file included in the project package.
 5. Click **Import**.
 
 Wait until the import process completes successfully.
 
 ---
 
-## Step 4: Configure Environment File
+## Step 5: Configure the Environment File
 
-Open the **.env** file located in the project root and update the following values:
+Open the **.env** file located in the project root directory.
+
+Update the following values:
 
 ```env
 APP_NAME=HRM
@@ -78,104 +114,215 @@ APP_ENV=production
 APP_KEY=base64:22/aK6fNUbF9u0kTeh7i+63Z3z6NqUKusjjdRNVaMaA=
 APP_DEBUG=false
 
-DB_HOST=localhost
-DB_DATABASE=enter_your_db
-DB_USERNAME=enter_your_db_user
-DB_PASSWORD="enter_db_password"
+APP_URL=https://yourdomain.com
 
-APP_URL="https://yourdomain.com"
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=your_database_name
+DB_USERNAME=your_database_user
+DB_PASSWORD=your_database_password
 ```
 
-Replace:
+Replace the following values with your hosting information:
 
-* **enter_your_db** with your database name.
-* **enter_your_db_user** with your database username.
-* **enter_db_password** with your database password.
-* **https://yourdomain.com** with your website URL.
+* `your_database_name`
+* `your_database_user`
+* `your_database_password`
+* `https://yourdomain.com`
 
 ---
 
-## Step 5: Set File Permissions (if required)
+## Step 6: Configure Storage Permissions
 
-Ensure the following directories are writable by the web server:
+Laravel requires write permission for the following directories:
 
 ```
 storage/
 bootstrap/cache/
 ```
 
-Recommended permissions:
+Recommended Permissions
 
-* Directories: **755**
-* Files: **644**
+| Item        | Permission |
+| ----------- | ---------- |
+| Directories | 755        |
+| Files       | 644        |
 
 ---
 
-## Step 6: Access Your Website
+## Step 7: Laravel Optimization (Optional)
 
-Open your web browser and visit:
+If you have SSH access, execute the following commands:
+
+```bash
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan optimize
+```
+
+These commands improve application performance.
+
+---
+
+## Step 8: Visit Your Website
+
+Open your browser and visit:
 
 ```
 https://yourdomain.com
 ```
 
-The HRM application should now be installed and ready to use.
+If everything has been configured correctly, the HRM application will load successfully.
+
+---
+
+# Default Login
+
+Use the administrator credentials provided by the software provider after installation.
+
+If no credentials are provided, please contact the developer.
 
 ---
 
 # Troubleshooting
 
-### White Screen or 500 Internal Server Error
+## HTTP 500 Internal Server Error
 
-* Verify the `.env` file configuration.
-* Confirm the database credentials are correct.
-* Ensure `storage` and `bootstrap/cache` are writable.
+Possible causes:
 
-### Database Connection Error
+* Incorrect `.env` configuration
+* Wrong database credentials
+* Missing PHP extensions
+* Storage permission issues
+* Corrupted upload
 
-* Check:
+Solution:
 
-  * Database Name
-  * Database Username
-  * Database Password
-  * Database Host (`localhost`)
+* Verify the `.env` file.
+* Confirm PHP version compatibility.
+* Ensure required PHP extensions are enabled.
+* Set proper permissions on `storage` and `bootstrap/cache`.
 
-### Images Cannot Upload
+---
 
-Enable the **PHP FileInfo** extension.
+## Database Connection Failed
 
-### Email Not Working
+Verify:
 
-* Configure the SMTP settings in the `.env` file.
-* Ensure the server has an active internet connection.
+* Database Name
+* Database Username
+* Database Password
+* Database Host (`localhost`)
+* Database Port (`3306`)
 
-### 404 Not Found
+---
 
-* Enable Apache **mod_rewrite**.
-* Confirm that `.htaccess` is present in the project directory.
+## 404 Not Found
+
+Ensure that:
+
+* Apache `mod_rewrite` is enabled.
+* `.htaccess` exists.
+* The domain points to the correct Laravel public directory.
+
+---
+
+## Images Cannot Upload
+
+Enable the following PHP extension:
+
+* FileInfo
+
+Also ensure the `storage` directory is writable.
+
+---
+
+## Email Not Working
+
+Configure SMTP settings inside the `.env` file.
+
+Example:
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=your_mail_host
+MAIL_PORT=587
+MAIL_USERNAME=your_email
+MAIL_PASSWORD=your_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=your_email@example.com
+MAIL_FROM_NAME=HRM
+```
+
+---
+
+## Permission Denied
+
+If the application cannot create cache or upload files, ensure:
+
+```
+storage/
+bootstrap/cache/
+```
+
+have write permission.
+
+---
+
+# Project Structure
+
+```
+public_html/
+│
+├── app/
+├── bootstrap/
+├── config/
+├── database/
+├── public/
+├── resources/
+├── routes/
+├── storage/
+├── vendor/
+├── .env
+├── artisan
+└── composer.json
+```
 
 ---
 
 # Support
 
-If you experience any installation issues, please contact the software provider with the following information:
+If you encounter any issues during installation, please provide the following information when contacting support:
 
 * Domain Name
 * PHP Version
-* Error Message (if any)
-* Screenshot of the issue
+* Laravel Version
+* MySQL Version
+* Error Message
+* Screenshot of the Error
+* Hosting Provider
 
-This will help us resolve your issue more quickly.
+Providing these details will help us diagnose and resolve your issue more efficiently.
 
+---
 
+# Development Team
 
-<img width="1024" height="1536" alt="poster" src="https://github.com/user-attachments/assets/c083c392-9824-4be9-aee5-a39179692d03" />
+**Project:** Human Resource Management System (HRM)
 
+**Framework:** Laravel
 
+**Developed By**
 
-by Sayan
+* Sayan
+* Anupama
+* Tiyasa
+* Prince
 
-by Anupama
+---
 
-by Tiyasa 
-by prince
+© Human Resource Management System (HRM)
+
+Built with the Laravel Framework.
